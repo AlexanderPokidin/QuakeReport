@@ -14,6 +14,9 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
+    public static final String LOG_TAG = "EarthquakeAdapter";
+
+    private static final String LOCATION_SEPARATOR = " of ";
 
     public EarthquakeAdapter(Activity context, ArrayList<Earthquake> earthquakes) {
         super(context, 0, earthquakes);
@@ -23,37 +26,51 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         View listItemView = convertView;
-        if (listItemView == null){
+        if (listItemView == null) {
             listItemView = LayoutInflater.from(getContext()).inflate(R.layout.list_item, parent, false);
         }
         Earthquake currentEarthquake = getItem(position);
 
-        TextView magTextView = (TextView) listItemView.findViewById(R.id.mag);
+        TextView magTextView = listItemView.findViewById(R.id.mag);
         magTextView.setText(currentEarthquake.getMag());
 
-        TextView cityTextViw = (TextView) listItemView.findViewById(R.id.city);
-        cityTextViw.setText(currentEarthquake.getCity());
+        TextView positionTextView = listItemView.findViewById(R.id.location);
+        positionTextView.setText(formatLocation(currentEarthquake.getCity())[0]);
+
+        TextView cityTextView = listItemView.findViewById(R.id.city);
+        cityTextView.setText(formatLocation(currentEarthquake.getCity())[1]);
 
         Date dateObject = new Date(currentEarthquake.getTimeInMilliseconds());
 
-        TextView dateTextView = (TextView)listItemView.findViewById(R.id.date);
+        TextView dateTextView = listItemView.findViewById(R.id.date);
         String formattedDate = formatDate(dateObject);
         dateTextView.setText(formattedDate);
 
-        TextView timeTextView = (TextView)listItemView.findViewById(R.id.time);
+        TextView timeTextView = listItemView.findViewById(R.id.time);
         String formattedTime = formatTime(dateObject);
-        dateTextView.setText(formattedTime);
+        timeTextView.setText(formattedTime);
 
         return listItemView;
     }
 
-    private String formatDate(Date dateObject){
-        SimpleDateFormat dateFormat = new SimpleDateFormat("LLL dd, yyyy");
+    private String formatDate(Date dateObject) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy");
         return dateFormat.format(dateObject);
     }
 
-    private String formatTime(Date dateObject){
+    private String formatTime(Date dateObject) {
         SimpleDateFormat timeFormat = new SimpleDateFormat("h:mm a");
         return timeFormat.format(dateObject);
+    }
+
+    private String[] formatLocation(String location) {
+        String[] strings;
+        if (location.contains(LOCATION_SEPARATOR)) {
+            strings = location.split(LOCATION_SEPARATOR);
+            strings[0] = strings[0] + LOCATION_SEPARATOR;
+        } else {
+            strings = new String[]{getContext().getString(R.string.near_the), location};
+        }
+        return strings;
     }
 }
