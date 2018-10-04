@@ -9,21 +9,28 @@
         android:id="@+id/mag"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="4.5"
-        android:layout_weight="1"/>
+        android:layout_weight="1"
+        android:text="4.5" />
 
     <TextView
         android:id="@+id/city"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Moscow"
-        android:layout_weight="1"/>
+        android:layout_weight="1"
+        android:text="Moscow" />
 
     <TextView
         android:id="@+id/date"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Mar 6, 2010"
-        android:layout_weight="1"/>
+        android:layout_weight="1"
+        android:text="Mar 6, 2010" />
+
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="3:00 PM" />
 
 </LinearLayout>

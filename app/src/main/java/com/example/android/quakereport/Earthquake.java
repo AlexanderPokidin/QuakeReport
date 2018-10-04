@@ -5,7 +5,7 @@ public class Earthquake {
 
     private String mMag;
     private String mCity;
-    private String mDate;
+    private long mTimeInMilliseconds;
 
     public String getMag() {
         return mMag;
@@ -15,14 +15,14 @@ public class Earthquake {
         return mCity;
     }
 
-    public String getDate() {
-        return mDate;
+    public long getTimeInMilliseconds() {
+        return mTimeInMilliseconds;
     }
 
-    public Earthquake(String mag, String city, String date) {
+    public Earthquake(String mag, String city, long timeInMilliseconds) {
 
         mMag = mag;
         mCity = city;
-        mDate = date;
+        mTimeInMilliseconds = timeInMilliseconds;
     }
 }
