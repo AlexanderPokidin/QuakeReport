@@ -53,7 +53,7 @@ public final class QueryUtils {
             for (int i = 0; i < quakeArray.length(); i++) {
                 JSONObject subObj = quakeArray.getJSONObject(i);
                 JSONObject quakeProperties = subObj.getJSONObject("properties");
-                String mag = quakeProperties.getString("mag");
+                double mag = quakeProperties.getDouble("mag");
                 String city = quakeProperties.getString("place");
                 long time = quakeProperties.getLong("time");
                 Earthquake earthquake = new Earthquake(mag, city, time);

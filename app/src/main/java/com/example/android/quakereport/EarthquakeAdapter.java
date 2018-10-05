@@ -1,6 +1,7 @@
 package com.example.android.quakereport;
 
 import android.app.Activity;
+import android.graphics.drawable.GradientDrawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -32,7 +34,15 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
         Earthquake currentEarthquake = getItem(position);
 
         TextView magTextView = listItemView.findViewById(R.id.mag);
-        magTextView.setText(currentEarthquake.getMag());
+        magTextView.setText(formatMagnitude(currentEarthquake.getMag()));
+
+        // Set the proper background color on the magnitude circle.
+        // Fetch the background from the TextView, which is a GradientDrawable.
+        GradientDrawable magCircle = (GradientDrawable) magTextView.getBackground();
+        // Get the appropriate background color based on the current earthquake magnitude
+        int magColor = getMagColor(currentEarthquake.getMag());
+        // Set the color on the magnitude circle
+        magCircle.setColor(magColor);
 
         TextView positionTextView = listItemView.findViewById(R.id.location);
         positionTextView.setText(formatLocation(currentEarthquake.getCity())[0]);
@@ -51,6 +61,9 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
         timeTextView.setText(formattedTime);
 
         return listItemView;
+    }
+
+    private int getMagColor(double magnitude){
     }
 
     private String formatDate(Date dateObject) {
@@ -72,5 +85,10 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
             strings = new String[]{getContext().getString(R.string.near_the), location};
         }
         return strings;
+    }
+
+    private String formatMagnitude(double mag) {
+        DecimalFormat inputFormat = new DecimalFormat("0.0");
+        return inputFormat.format(mag);
     }
 }
