@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.graphics.drawable.GradientDrawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,7 +64,42 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
         return listItemView;
     }
 
-    private int getMagColor(double magnitude){
+    private int getMagColor(double magnitude) {
+        int magColorId;
+        int mag = (int) magnitude;
+        switch (mag) {
+            case 0:
+            case 1:
+                magColorId = R.color.mag1;
+                break;
+            case 2:
+                magColorId = R.color.mag2;
+                break;
+            case 3:
+                magColorId = R.color.mag3;
+                break;
+            case 4:
+                magColorId = R.color.mag4;
+                break;
+            case 5:
+                magColorId = R.color.mag5;
+            case 6:
+                magColorId = R.color.mag6;
+                break;
+            case 7:
+                magColorId = R.color.mag7;
+                break;
+            case 8:
+                magColorId = R.color.mag8;
+                break;
+            case 9:
+                magColorId = R.color.mag9;
+                break;
+            default:
+                magColorId = R.color.mag10;
+                break;
+        }
+        return ContextCompat.getColor(getContext(), magColorId);
     }
 
     private String formatDate(Date dateObject) {
