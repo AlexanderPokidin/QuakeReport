@@ -45,10 +45,10 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
         // Set the color on the magnitude circle
         magCircle.setColor(magColor);
 
-        TextView positionTextView = listItemView.findViewById(R.id.location);
+        TextView positionTextView = listItemView.findViewById(R.id.details);
         positionTextView.setText(formatLocation(currentEarthquake.getCity())[0]);
 
-        TextView cityTextView = listItemView.findViewById(R.id.city);
+        TextView cityTextView = listItemView.findViewById(R.id.location);
         cityTextView.setText(formatLocation(currentEarthquake.getCity())[1]);
 
         Date dateObject = new Date(currentEarthquake.getTimeInMilliseconds());
