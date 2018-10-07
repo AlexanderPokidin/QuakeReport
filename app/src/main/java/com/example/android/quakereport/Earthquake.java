@@ -6,6 +6,7 @@ public class Earthquake {
     private double mMag;
     private String mCity;
     private long mTimeInMilliseconds;
+    private String mUrl;
 
     public double getMag() {
         return mMag;
@@ -19,10 +20,15 @@ public class Earthquake {
         return mTimeInMilliseconds;
     }
 
-    public Earthquake(double mag, String city, long timeInMilliseconds) {
+    public String getUrl() {
+        return mUrl;
+    }
+
+    public Earthquake(double mag, String city, long timeInMilliseconds, String url) {
 
         mMag = mag;
         mCity = city;
         mTimeInMilliseconds = timeInMilliseconds;
+        mUrl = url;
     }
 }

@@ -56,7 +56,13 @@ public final class QueryUtils {
                 double mag = quakeProperties.getDouble("mag");
                 String city = quakeProperties.getString("place");
                 long time = quakeProperties.getLong("time");
-                Earthquake earthquake = new Earthquake(mag, city, time);
+
+                // Extract the value for the key called "url"
+                String url = quakeProperties.getString("url");
+
+                // Create a new {@link Earthquake} object with the magnitude, location, time,
+                // and url from the JSON response.
+                Earthquake earthquake = new Earthquake(mag, city, time, url);
                 earthquakes.add(earthquake);
             }
 
