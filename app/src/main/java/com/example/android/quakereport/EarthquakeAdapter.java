@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
-    public static final String LOG_TAG = "EarthquakeAdapter";
+    public static final String TAG = "EarthquakeAdapter";
 
     private static final String LOCATION_SEPARATOR = " of ";
 
@@ -40,8 +40,10 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
         // Set the proper background color on the magnitude circle.
         // Fetch the background from the TextView, which is a GradientDrawable.
         GradientDrawable magCircle = (GradientDrawable) magTextView.getBackground();
+
         // Get the appropriate background color based on the current earthquake magnitude
         int magColor = getMagColor(currentEarthquake.getMag());
+
         // Set the color on the magnitude circle
         magCircle.setColor(magColor);
 
