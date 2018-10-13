@@ -21,6 +21,7 @@ import android.content.Loader;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -30,7 +31,7 @@ import java.util.List;
 
 public class EarthquakeActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<Earthquake>> {
 
-    public static final String TAG = EarthquakeActivity.class.getName();
+    public static final String TAG = EarthquakeActivity.class.getSimpleName();
 
     private static final String USGS_REQUEST_URL =
             "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&eventtype=earthquake&orderby=time&minmag=6&limit=10";
@@ -80,10 +81,12 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
         // the bundle. Pass in this activity for the LoaderCallbacks parameter (which is valid
         // because this activity implements the LoaderCallbacks interface).
         loaderManager.initLoader(EARTHQUAKE_LOADER_ID, null, this);
+        Log.d(TAG, "initLoader checked");
     }
 
     @Override
     public Loader<List<Earthquake>> onCreateLoader(int id, Bundle args) {
+        Log.d(TAG, "onCreateLoader checked");
 
         // Create a new loader for the given URL
         return new EarthquakeLoader(this, USGS_REQUEST_URL);
@@ -91,6 +94,7 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
 
     @Override
     public void onLoadFinished(Loader<List<Earthquake>> loader, List<Earthquake> earthquakes) {
+        Log.d(TAG, "onLoadFinished checked");
 
         // Clear the adapter of previous earthquake data
         mAdapter.clear();
@@ -104,6 +108,7 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
 
     @Override
     public void onLoaderReset(Loader<List<Earthquake>> loader) {
+        Log.d(TAG, "onLoaderReset checked");
         // Loader reset, so we can clear out our existing data.
         mAdapter.clear();
     }
