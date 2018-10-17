@@ -95,7 +95,7 @@ public final class QueryUtils {
     }
 
     /**
-     * Create a private constructor because no one should ever create a {@link QueryUtils} object.
+     * Create a private constructor because no one should ever create a QueryUtils object.
      * This class is only meant to hold static variables and methods, which can be accessed
      * directly from the class name QueryUtils (and an object instance of QueryUtils is not needed).
      */
@@ -103,7 +103,7 @@ public final class QueryUtils {
     }
 
     /**
-     * Return a list of {@link Earthquake} objects that has been built up from
+     * Return a list of Earthquake objects that has been built up from
      * parsing a JSON response.
      */
     public static ArrayList<Earthquake> extractFeatureFromJson(String earthquakeJSON) {
@@ -126,7 +126,7 @@ public final class QueryUtils {
             // which represents a list of features (or earthquakes).
             JSONArray quakeArray = baseJsonResponse.getJSONArray("features");
 
-            // For each earthquake in the earthquakeArray, create an {@link Earthquake} object
+            // For each earthquake in the earthquakeArray, create an Earthquake object
             if (quakeArray.length() > 0) {
                 for (int i = 0; i < quakeArray.length(); i++) {
 
@@ -144,7 +144,7 @@ public final class QueryUtils {
                     // Extract the value for the key called "url"
                     String url = quakeProperties.getString("url");
 
-                    // Create a new {@link Earthquake} baseJsonResponse with the magnitude, location, time,
+                    // Create a new Earthquake baseJsonResponse with the magnitude, location, time,
                     // and url from the JSON response.
                     Earthquake earthquake = new Earthquake(mag, city, time, url);
                     earthquakes.add(earthquake);
@@ -163,7 +163,7 @@ public final class QueryUtils {
     }
 
     /**
-     * Query the USGS dataset and return a list of {@link Earthquake} objects.
+     * Query the USGS dataset and return a list of Earthquake objects.
      */
     public static List<Earthquake> fetchEarthquakeData(String requestUrl) {
 
@@ -186,8 +186,8 @@ public final class QueryUtils {
         }
 
         Log.d(TAG, "fetchEarthquakeData checked");
-        // Extract relevant fields from the JSON response and create a list of {@link Earthquake}s
-        // Return the list of {@link Earthquake}s
+        // Extract relevant fields from the JSON response and create a list of Earthquakes
+        // Return the list of Earthquakes
         return extractFeatureFromJson(jsonResponse);
     }
 }
