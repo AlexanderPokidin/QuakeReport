@@ -3,7 +3,6 @@ package com.example.android.quakereport;
 import android.annotation.TargetApi;
 import android.net.Uri;
 import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,16 +20,23 @@ public class WebActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web);
 
+        // Get URI object from the intent
         Uri earthquakeUri = getIntent().getData();
 
+        // Find a reference to the WebView in the layout
         mWebView = findViewById(R.id.web_view);
         mWebView.getSettings().setJavaScriptEnabled(true);
+
+        // Create your own browser to view application pages
         mWebView.setWebViewClient(new EarthquakeWebViewClient());
+
+        // Download the current earthquake details page.
         mWebView.loadUrl(String.valueOf(earthquakeUri));
 
         Log.d(TAG, "earthquakeUri checked: " + earthquakeUri);
     }
 
+    // Handling the Back button for WebView
     @Override
     public void onBackPressed() {
         if (mWebView.canGoBack()) {
