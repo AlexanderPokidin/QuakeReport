@@ -6,6 +6,7 @@ import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -34,6 +35,8 @@ public class WebActivity extends AppCompatActivity {
         mWebView.loadUrl(String.valueOf(earthquakeUri));
 
         Log.d(TAG, "earthquakeUri checked: " + earthquakeUri);
+
+
     }
 
     // Handling the Back button for WebView
@@ -52,6 +55,16 @@ public class WebActivity extends AppCompatActivity {
         public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
             view.loadUrl(request.getUrl().toString());
             return true;
+        }
+
+        @Override
+        public void onPageFinished(WebView view, String url) {
+
+            // Hide loading indicator because the data has been loaded
+            View loadingIndicator = findViewById(R.id.web_loading_spinner);
+            loadingIndicator.setVisibility(View.GONE);
+
+            super.onPageFinished(view, url);
         }
     }
 }

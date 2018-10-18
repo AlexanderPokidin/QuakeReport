@@ -22,7 +22,8 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
 
     public static final String TAG = EarthquakeActivity.class.getSimpleName();
 
-    private static final String USGS_REQUEST_URL = "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&eventtype=earthquake&orderby=time&minmag=6&limit=10";
+    private static final String USGS_REQUEST_URL
+            = "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&eventtype=earthquake&orderby=time&minmag=6&limit=20";
 
     // Constant value for the earthquake loader ID. We can choose any integer.
     // This really only comes into play if you're using multiple loaders.
