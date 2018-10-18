@@ -22,7 +22,8 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
 
     public static final String TAG = EarthquakeActivity.class.getSimpleName();
 
-    private static final String USGS_REQUEST_URL = "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&eventtype=earthquake&orderby=time&minmag=6&limit=10";
+    private static final String USGS_REQUEST_URL
+            = "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&eventtype=earthquake&orderby=time&minmag=6&limit=20";
 
     // Constant value for the earthquake loader ID. We can choose any integer.
     // This really only comes into play if you're using multiple loaders.
@@ -36,7 +37,7 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
         super.onCreate(savedInstanceState);
         setContentView(R.layout.earthquake_activity);
 
-        // Find a reference to the {@link ListView} in the layout
+        // Find a reference to the ListView in the layout
         ListView earthquakeListView = findViewById(R.id.list);
 
         mEmptyStateTextView = findViewById(R.id.empty_view);
@@ -45,7 +46,7 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
         // Create a new adapter that takes an empty list of earthquakes as input
         mAdapter = new EarthquakeAdapter(this, new ArrayList<Earthquake>());
 
-        // Set the adapter on the {@link ListView}
+        // Set the adapter on the ListView
         // so the list can be populated in the user interface
         earthquakeListView.setAdapter(mAdapter);
 
@@ -58,8 +59,12 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
                 // Convert the String URL into a URI object (to pass into the Intent constructor)
                 Uri earthquakeUri = Uri.parse(currentEarthquake.getUrl());
 
-                // Create a new intent to view the earthquake URI
-                Intent intent = new Intent(Intent.ACTION_VIEW, earthquakeUri);
+                // Create a new intent to view the earthquake URI in the default browser
+//                Intent intent = new Intent(Intent.ACTION_VIEW, earthquakeUri);
+
+                // Create a new intent to view the earthquake URI in the own WebView browser
+                Intent intent = new Intent(EarthquakeActivity.this, WebActivity.class);
+                intent.setData(earthquakeUri);
 
                 // Send the intent to launch a new activity
                 startActivity(intent);
@@ -114,7 +119,7 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
         // Clear the adapter of previous earthquake data
         mAdapter.clear();
 
-        // If there is a valid list of {@link Earthquake}s, then add them to the adapter's
+        // If there is a valid list of Earthquakes, then add them to the adapter's
         // data set. This will trigger the ListView to update.
         if (earthquakes != null && !earthquakes.isEmpty()) {
             mAdapter.addAll(earthquakes);

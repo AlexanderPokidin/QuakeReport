@@ -85,6 +85,7 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
                 break;
             case 5:
                 magColorId = R.color.mag5;
+                break;
             case 6:
                 magColorId = R.color.mag6;
                 break;
@@ -104,16 +105,19 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
         return ContextCompat.getColor(getContext(), magColorId);
     }
 
+    // Format date display
     private String formatDate(Date dateObject) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy");
         return dateFormat.format(dateObject);
     }
 
+    // Format time display
     private String formatTime(Date dateObject) {
         SimpleDateFormat timeFormat = new SimpleDateFormat("h:mm a");
         return timeFormat.format(dateObject);
     }
 
+    // Format location display  in two-line
     private String[] formatLocation(String location) {
         String[] strings;
         if (location.contains(LOCATION_SEPARATOR)) {
@@ -125,6 +129,7 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
         return strings;
     }
 
+    // Format magnitude display
     private String formatMagnitude(double mag) {
         DecimalFormat inputFormat = new DecimalFormat("0.0");
         return inputFormat.format(mag);
