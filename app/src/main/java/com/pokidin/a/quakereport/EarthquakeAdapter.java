@@ -16,7 +16,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class EarthquakeAdapter extends ArrayAdapter<com.pokidin.a.quakereport.Earthquake> {
+public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
     public static final String TAG = "EarthquakeAdapter";
 
     private static final String LOCATION_SEPARATOR = " of ";
@@ -38,7 +38,6 @@ public class EarthquakeAdapter extends ArrayAdapter<com.pokidin.a.quakereport.Ea
         magTextView.setText(formatMagnitude(currentEarthquake.getMag()));
 
         // Set the proper background color on the magnitude circle.
-        // Fetch the background from the TextView, which is a GradientDrawable.
         GradientDrawable magCircle = (GradientDrawable) magTextView.getBackground();
 
         // Get the appropriate background color based on the current earthquake magnitude

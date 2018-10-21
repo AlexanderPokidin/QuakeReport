@@ -17,17 +17,15 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.pokidin.a.quakereport.EarthquakeAdapter;
-
 import java.util.ArrayList;
 import java.util.List;
 
-public class EarthquakeActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<com.pokidin.a.quakereport.Earthquake>> {
+public class EarthquakeActivity extends AppCompatActivity
+        implements LoaderManager.LoaderCallbacks<List<Earthquake>> {
 
     public static final String TAG = EarthquakeActivity.class.getSimpleName();
 
-    private static final String USGS_REQUEST_URL
-            = "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&eventtype=earthquake&orderby=time&minmag=6&limit=20";
+    private static final String USGS_REQUEST_URL = "https://earthquake.usgs.gov/fdsnws/event/1/query";
 
     // Constant value for the earthquake loader ID. We can choose any integer.
     // This really only comes into play if you're using multiple loaders.
@@ -50,8 +48,7 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
         // Create a new adapter that takes an empty list of earthquakes as input
         mAdapter = new EarthquakeAdapter(this, new ArrayList<com.pokidin.a.quakereport.Earthquake>());
 
-        // Set the adapter on the ListView
-        // so the list can be populated in the user interface
+        // Set the adapter on the ListView so the list can be populated in the user interface
         earthquakeListView.setAdapter(mAdapter);
 
         earthquakeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -62,9 +59,6 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
 
                 // Convert the String URL into a URI object (to pass into the Intent constructor)
                 Uri earthquakeUri = Uri.parse(currentEarthquake.getUrl());
-
-                // Create a new intent to view the earthquake URI in the default browser
-//                Intent intent = new Intent(Intent.ACTION_VIEW, earthquakeUri);
 
                 // Create a new intent to view the earthquake URI in the own WebView browser
                 Intent intent = new Intent(EarthquakeActivity.this, WebActivity.class);
