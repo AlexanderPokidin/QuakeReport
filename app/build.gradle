@@ -3,9 +3,8 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 27
     buildToolsVersion '28.0.3'
-
     defaultConfig {
-        applicationId "com.example.android.quakereport"
+        applicationId 'com.pokidin.a.quakereport'
         minSdkVersion 19
         targetSdkVersion 27
         versionCode 1
@@ -17,10 +16,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    productFlavors {
+    }
 }
 
 dependencies {
-    api fileTree(dir: 'libs', include: ['*.jar'])
+    api fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     testImplementation 'junit:junit:4.12'
     api 'com.android.support:appcompat-v7:27.1.1'

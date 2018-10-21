@@ -1,4 +1,4 @@
-package com.example.android.quakereport;
+package com.pokidin.a.quakereport;
 
 import android.content.AsyncTaskLoader;
 import android.content.Context;
@@ -10,7 +10,7 @@ import java.util.List;
  * Loads a list of earthquakes by using an AsyncTask to perform the
  * network request to the given URL.
  */
-public class EarthquakeLoader extends AsyncTaskLoader<List<Earthquake>> {
+public class EarthquakeLoader extends AsyncTaskLoader<List<com.pokidin.a.quakereport.Earthquake>> {
 
     private static final String TAG = EarthquakeLoader.class.getSimpleName();
 
@@ -29,7 +29,7 @@ public class EarthquakeLoader extends AsyncTaskLoader<List<Earthquake>> {
     }
 
     @Override
-    public List<Earthquake> loadInBackground() {
+    public List<com.pokidin.a.quakereport.Earthquake> loadInBackground() {
         Log.d(TAG, "loadInBackground checked");
 
         // Don't perform the request if there are no URLs, or the first URL is null.

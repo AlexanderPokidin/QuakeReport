@@ -1,4 +1,4 @@
-package com.example.android.quakereport;
+package com.pokidin.a.quakereport;
 
 import android.annotation.TargetApi;
 import android.net.Uri;

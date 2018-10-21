@@ -1,4 +1,4 @@
-package com.example.android.quakereport;
+package com.pokidin.a.quakereport;
 
 import android.app.LoaderManager;
 import android.content.Context;
@@ -15,10 +15,12 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.pokidin.a.quakereport.EarthquakeAdapter;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class EarthquakeActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<Earthquake>> {
+public class EarthquakeActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<com.pokidin.a.quakereport.Earthquake>> {
 
     public static final String TAG = EarthquakeActivity.class.getSimpleName();
 
@@ -44,7 +46,7 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
         earthquakeListView.setEmptyView(mEmptyStateTextView);
 
         // Create a new adapter that takes an empty list of earthquakes as input
-        mAdapter = new EarthquakeAdapter(this, new ArrayList<Earthquake>());
+        mAdapter = new EarthquakeAdapter(this, new ArrayList<com.pokidin.a.quakereport.Earthquake>());
 
         // Set the adapter on the ListView
         // so the list can be populated in the user interface
@@ -54,7 +56,7 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // Find the current earthquake that was clicked on
-                Earthquake currentEarthquake = mAdapter.getItem(position);
+                com.pokidin.a.quakereport.Earthquake currentEarthquake = mAdapter.getItem(position);
 
                 // Convert the String URL into a URI object (to pass into the Intent constructor)
                 Uri earthquakeUri = Uri.parse(currentEarthquake.getUrl());
@@ -98,7 +100,7 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
     }
 
     @Override
-    public Loader<List<Earthquake>> onCreateLoader(int id, Bundle args) {
+    public Loader<List<com.pokidin.a.quakereport.Earthquake>> onCreateLoader(int id, Bundle args) {
         Log.d(TAG, "onCreateLoader checked");
 
         // Create a new loader for the given URL
@@ -106,7 +108,7 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
     }
 
     @Override
-    public void onLoadFinished(Loader<List<Earthquake>> loader, List<Earthquake> earthquakes) {
+    public void onLoadFinished(Loader<List<com.pokidin.a.quakereport.Earthquake>> loader, List<com.pokidin.a.quakereport.Earthquake> earthquakes) {
         Log.d(TAG, "onLoadFinished checked");
 
         // Hide loading indicator because the data has been loaded
@@ -127,7 +129,7 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
     }
 
     @Override
-    public void onLoaderReset(Loader<List<Earthquake>> loader) {
+    public void onLoaderReset(Loader<List<com.pokidin.a.quakereport.Earthquake>> loader) {
         Log.d(TAG, "onLoaderReset checked");
         // Loader reset, so we can clear out our existing data.
         mAdapter.clear();

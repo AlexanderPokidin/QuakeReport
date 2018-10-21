@@ -1,4 +1,4 @@
-package com.example.android.quakereport;
+package com.pokidin.a.quakereport;
 
 
 public class Earthquake {

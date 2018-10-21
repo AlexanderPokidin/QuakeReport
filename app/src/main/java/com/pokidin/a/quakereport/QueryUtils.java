@@ -1,4 +1,4 @@
-package com.example.android.quakereport;
+package com.pokidin.a.quakereport;
 
 import android.text.TextUtils;
 import android.util.Log;
@@ -106,13 +106,13 @@ public final class QueryUtils {
      * Return a list of Earthquake objects that has been built up from
      * parsing a JSON response.
      */
-    public static ArrayList<Earthquake> extractFeatureFromJson(String earthquakeJSON) {
+    public static ArrayList<com.pokidin.a.quakereport.Earthquake> extractFeatureFromJson(String earthquakeJSON) {
         // If the JSON string is empty or null, then return early.
         if (TextUtils.isEmpty(earthquakeJSON)) {
             return null;
         }
         // Create an empty ArrayList that we can start adding earthquakes to
-        ArrayList<Earthquake> earthquakes = new ArrayList<>();
+        ArrayList<com.pokidin.a.quakereport.Earthquake> earthquakes = new ArrayList<>();
 
         // Try to parse the SAMPLE_JSON_RESPONSE. If there's a problem with the way the JSON
         // is formatted, a JSONException exception object will be thrown.
@@ -146,7 +146,7 @@ public final class QueryUtils {
 
                     // Create a new Earthquake baseJsonResponse with the magnitude, location, time,
                     // and url from the JSON response.
-                    Earthquake earthquake = new Earthquake(mag, city, time, url);
+                    com.pokidin.a.quakereport.Earthquake earthquake = new com.pokidin.a.quakereport.Earthquake(mag, city, time, url);
                     earthquakes.add(earthquake);
                 }
             }
@@ -165,7 +165,7 @@ public final class QueryUtils {
     /**
      * Query the USGS dataset and return a list of Earthquake objects.
      */
-    public static List<Earthquake> fetchEarthquakeData(String requestUrl) {
+    public static List<com.pokidin.a.quakereport.Earthquake> fetchEarthquakeData(String requestUrl) {
 
         // Create URL object
         URL url = createUrl(requestUrl);
