@@ -1,4 +1,4 @@
-package com.example.android.quakereport;
+package com.pokidin.a.quakereport;
 
 import android.app.Activity;
 import android.graphics.drawable.GradientDrawable;
@@ -16,12 +16,12 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
+public class EarthquakeAdapter extends ArrayAdapter<com.pokidin.a.quakereport.Earthquake> {
     public static final String TAG = "EarthquakeAdapter";
 
     private static final String LOCATION_SEPARATOR = " of ";
 
-    public EarthquakeAdapter(Activity context, ArrayList<Earthquake> earthquakes) {
+    public EarthquakeAdapter(Activity context, ArrayList<com.pokidin.a.quakereport.Earthquake> earthquakes) {
         super(context, 0, earthquakes);
     }
 
@@ -32,7 +32,7 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
         if (listItemView == null) {
             listItemView = LayoutInflater.from(getContext()).inflate(R.layout.list_item, parent, false);
         }
-        Earthquake currentEarthquake = getItem(position);
+        com.pokidin.a.quakereport.Earthquake currentEarthquake = getItem(position);
 
         TextView magTextView = listItemView.findViewById(R.id.mag);
         magTextView.setText(formatMagnitude(currentEarthquake.getMag()));
