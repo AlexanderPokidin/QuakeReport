@@ -21,7 +21,7 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
 
     private static final String LOCATION_SEPARATOR = " of ";
 
-    public EarthquakeAdapter(Activity context, ArrayList<com.pokidin.a.quakereport.Earthquake> earthquakes) {
+    public EarthquakeAdapter(Activity context, ArrayList<Earthquake> earthquakes) {
         super(context, 0, earthquakes);
     }
 
@@ -32,7 +32,7 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
         if (listItemView == null) {
             listItemView = LayoutInflater.from(getContext()).inflate(R.layout.list_item, parent, false);
         }
-        com.pokidin.a.quakereport.Earthquake currentEarthquake = getItem(position);
+        Earthquake currentEarthquake = getItem(position);
 
         TextView magTextView = listItemView.findViewById(R.id.mag);
         magTextView.setText(formatMagnitude(currentEarthquake.getMag()));

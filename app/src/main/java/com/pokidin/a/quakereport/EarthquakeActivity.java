@@ -125,7 +125,7 @@ public class EarthquakeActivity extends AppCompatActivity
     }
 
     @Override
-    public void onLoaderReset(Loader<List<com.pokidin.a.quakereport.Earthquake>> loader) {
+    public void onLoaderReset(Loader<List<Earthquake>> loader) {
         Log.d(TAG, "onLoaderReset checked");
         // Loader reset, so we can clear out our existing data.
         mAdapter.clear();

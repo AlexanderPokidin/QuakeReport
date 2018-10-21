@@ -28,7 +28,7 @@ public class EarthquakeLoader extends AsyncTaskLoader<List<Earthquake>> {
     }
 
     @Override
-    public List<com.pokidin.a.quakereport.Earthquake> loadInBackground() {
+    public List<Earthquake> loadInBackground() {
         Log.d(TAG, "loadInBackground checked");
 
         // Don't perform the request if there are no URLs, or the first URL is null.
