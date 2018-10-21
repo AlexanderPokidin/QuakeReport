@@ -16,12 +16,12 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class EarthquakeAdapter extends ArrayAdapter<com.pokidin.a.quakereport.Earthquake> {
+public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
     public static final String TAG = "EarthquakeAdapter";
 
     private static final String LOCATION_SEPARATOR = " of ";
 
-    public EarthquakeAdapter(Activity context, ArrayList<com.pokidin.a.quakereport.Earthquake> earthquakes) {
+    public EarthquakeAdapter(Activity context, ArrayList<Earthquake> earthquakes) {
         super(context, 0, earthquakes);
     }
 
@@ -32,13 +32,12 @@ public class EarthquakeAdapter extends ArrayAdapter<com.pokidin.a.quakereport.Ea
         if (listItemView == null) {
             listItemView = LayoutInflater.from(getContext()).inflate(R.layout.list_item, parent, false);
         }
-        com.pokidin.a.quakereport.Earthquake currentEarthquake = getItem(position);
+        Earthquake currentEarthquake = getItem(position);
 
         TextView magTextView = listItemView.findViewById(R.id.mag);
         magTextView.setText(formatMagnitude(currentEarthquake.getMag()));
 
         // Set the proper background color on the magnitude circle.
-        // Fetch the background from the TextView, which is a GradientDrawable.
         GradientDrawable magCircle = (GradientDrawable) magTextView.getBackground();
 
         // Get the appropriate background color based on the current earthquake magnitude

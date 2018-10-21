@@ -4,28 +4,30 @@ import android.app.LoaderManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.pokidin.a.quakereport.EarthquakeAdapter;
-
 import java.util.ArrayList;
 import java.util.List;
 
-public class EarthquakeActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<com.pokidin.a.quakereport.Earthquake>> {
+public class EarthquakeActivity extends AppCompatActivity
+        implements LoaderManager.LoaderCallbacks<List<Earthquake>> {
 
     public static final String TAG = EarthquakeActivity.class.getSimpleName();
 
-    private static final String USGS_REQUEST_URL
-            = "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&eventtype=earthquake&orderby=time&minmag=6&limit=20";
+    private static final String USGS_REQUEST_URL = "https://earthquake.usgs.gov/fdsnws/event/1/query";
 
     // Constant value for the earthquake loader ID. We can choose any integer.
     // This really only comes into play if you're using multiple loaders.
@@ -46,23 +48,19 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
         earthquakeListView.setEmptyView(mEmptyStateTextView);
 
         // Create a new adapter that takes an empty list of earthquakes as input
-        mAdapter = new EarthquakeAdapter(this, new ArrayList<com.pokidin.a.quakereport.Earthquake>());
+        mAdapter = new EarthquakeAdapter(this, new ArrayList<Earthquake>());
 
-        // Set the adapter on the ListView
-        // so the list can be populated in the user interface
+        // Set the adapter on the ListView so the list can be populated in the user interface
         earthquakeListView.setAdapter(mAdapter);
 
         earthquakeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // Find the current earthquake that was clicked on
-                com.pokidin.a.quakereport.Earthquake currentEarthquake = mAdapter.getItem(position);
+                Earthquake currentEarthquake = mAdapter.getItem(position);
 
                 // Convert the String URL into a URI object (to pass into the Intent constructor)
                 Uri earthquakeUri = Uri.parse(currentEarthquake.getUrl());
-
-                // Create a new intent to view the earthquake URI in the default browser
-//                Intent intent = new Intent(Intent.ACTION_VIEW, earthquakeUri);
 
                 // Create a new intent to view the earthquake URI in the own WebView browser
                 Intent intent = new Intent(EarthquakeActivity.this, WebActivity.class);
@@ -100,15 +98,38 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
     }
 
     @Override
-    public Loader<List<com.pokidin.a.quakereport.Earthquake>> onCreateLoader(int id, Bundle args) {
+    public Loader<List<Earthquake>> onCreateLoader(int id, Bundle args) {
         Log.d(TAG, "onCreateLoader checked");
 
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+        // Extract minimum Earthquake magnitude value from SharedPreference
+        String minMagnitude = sharedPreferences.getString(
+                getString(R.string.settings_min_magnitude_key),
+                getString(R.string.settings_min_magnitude_default));
+
+        String orderBy = sharedPreferences.getString(
+                getString(R.string.settings_order_by_key),
+                getString(R.string.settings_order_by_default));
+
+        // Create request URL
+        Uri baseUri = Uri.parse(USGS_REQUEST_URL);
+        Uri.Builder builder = baseUri.buildUpon();
+
+        builder.appendQueryParameter("format", "geojson");
+        builder.appendQueryParameter("limit", "10");
+
+        // Add minimum Earthquake magnitude value to request URL
+        builder.appendQueryParameter("minmag", minMagnitude);
+
+        builder.appendQueryParameter("orderby", orderBy);
+
         // Create a new loader for the given URL
-        return new EarthquakeLoader(this, USGS_REQUEST_URL);
+        return new EarthquakeLoader(this, builder.toString());
     }
 
     @Override
-    public void onLoadFinished(Loader<List<com.pokidin.a.quakereport.Earthquake>> loader, List<com.pokidin.a.quakereport.Earthquake> earthquakes) {
+    public void onLoadFinished(Loader<List<Earthquake>> loader, List<Earthquake> earthquakes) {
         Log.d(TAG, "onLoadFinished checked");
 
         // Hide loading indicator because the data has been loaded
@@ -129,9 +150,27 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
     }
 
     @Override
-    public void onLoaderReset(Loader<List<com.pokidin.a.quakereport.Earthquake>> loader) {
+    public void onLoaderReset(Loader<List<Earthquake>> loader) {
         Log.d(TAG, "onLoaderReset checked");
         // Loader reset, so we can clear out our existing data.
         mAdapter.clear();
+    }
+
+    // Create settings menu
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_settings) {
+            Intent settingIntent = new Intent(this, SettingsActivity.class);
+            startActivity(settingIntent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

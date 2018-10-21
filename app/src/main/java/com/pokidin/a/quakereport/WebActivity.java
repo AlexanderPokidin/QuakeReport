@@ -35,8 +35,6 @@ public class WebActivity extends AppCompatActivity {
         mWebView.loadUrl(String.valueOf(earthquakeUri));
 
         Log.d(TAG, "earthquakeUri checked: " + earthquakeUri);
-
-
     }
 
     // Handling the Back button for WebView

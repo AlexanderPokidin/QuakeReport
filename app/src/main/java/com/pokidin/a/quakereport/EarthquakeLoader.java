@@ -7,10 +7,9 @@ import android.util.Log;
 import java.util.List;
 
 /**
- * Loads a list of earthquakes by using an AsyncTask to perform the
- * network request to the given URL.
+ * Loads a list of earthquakes by using an AsyncTask to perform the network request to the given URL.
  */
-public class EarthquakeLoader extends AsyncTaskLoader<List<com.pokidin.a.quakereport.Earthquake>> {
+public class EarthquakeLoader extends AsyncTaskLoader<List<Earthquake>> {
 
     private static final String TAG = EarthquakeLoader.class.getSimpleName();
 
@@ -29,7 +28,7 @@ public class EarthquakeLoader extends AsyncTaskLoader<List<com.pokidin.a.quakere
     }
 
     @Override
-    public List<com.pokidin.a.quakereport.Earthquake> loadInBackground() {
+    public List<Earthquake> loadInBackground() {
         Log.d(TAG, "loadInBackground checked");
 
         // Don't perform the request if there are no URLs, or the first URL is null.

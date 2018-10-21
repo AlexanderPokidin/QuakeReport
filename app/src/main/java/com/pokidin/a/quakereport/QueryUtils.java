@@ -70,10 +70,6 @@ public final class QueryUtils {
                 urlConnection.disconnect();
             }
             if (inputStream != null) {
-
-                // Closing the input stream could throw an IOException, which is why
-                // the makeHttpRequest(URL url) method signature specifies than an IOException
-                // could be thrown.
                 inputStream.close();
             }
         }
@@ -102,28 +98,23 @@ public final class QueryUtils {
     private QueryUtils() {
     }
 
-    /**
-     * Return a list of Earthquake objects that has been built up from
-     * parsing a JSON response.
-     */
-    public static ArrayList<com.pokidin.a.quakereport.Earthquake> extractFeatureFromJson(String earthquakeJSON) {
+    // Return a list of Earthquake objects that has been built up from parsing a JSON response.
+    public static ArrayList<Earthquake> extractFeatureFromJson(String earthquakeJSON) {
+
         // If the JSON string is empty or null, then return early.
         if (TextUtils.isEmpty(earthquakeJSON)) {
             return null;
         }
-        // Create an empty ArrayList that we can start adding earthquakes to
-        ArrayList<com.pokidin.a.quakereport.Earthquake> earthquakes = new ArrayList<>();
 
-        // Try to parse the SAMPLE_JSON_RESPONSE. If there's a problem with the way the JSON
-        // is formatted, a JSONException exception object will be thrown.
-        // Catch the exception so the app doesn't crash, and print the error message to the logs.
+        // Create an empty ArrayList that we can start adding earthquakes to
+        ArrayList<Earthquake> earthquakes = new ArrayList<>();
+
         try {
 
             // Create a JSONObject from the JSON response string
             JSONObject baseJsonResponse = new JSONObject(earthquakeJSON);
 
-            // Extract the JSONArray associated with the key called "features",
-            // which represents a list of features (or earthquakes).
+            // Extract the JSONArray associated with the key called "features"
             JSONArray quakeArray = baseJsonResponse.getJSONArray("features");
 
             // For each earthquake in the earthquakeArray, create an Earthquake object
@@ -134,8 +125,7 @@ public final class QueryUtils {
                     JSONObject currentEarthquake = quakeArray.getJSONObject(i);
 
                     // For a given earthquake, extract the JSONObject associated with the
-                    // key called "properties", which represents a list of all properties
-                    // for that earthquake.
+                    // key called "properties"
                     JSONObject quakeProperties = currentEarthquake.getJSONObject("properties");
                     double mag = quakeProperties.getDouble("mag");
                     String city = quakeProperties.getString("place");
@@ -146,26 +136,18 @@ public final class QueryUtils {
 
                     // Create a new Earthquake baseJsonResponse with the magnitude, location, time,
                     // and url from the JSON response.
-                    com.pokidin.a.quakereport.Earthquake earthquake = new com.pokidin.a.quakereport.Earthquake(mag, city, time, url);
+                    Earthquake earthquake = new Earthquake(mag, city, time, url);
                     earthquakes.add(earthquake);
                 }
             }
         } catch (JSONException e) {
-
-            // If an error is thrown when executing any of the above statements in the "try" block,
-            // catch the exception here, so the app doesn't crash. Print a log message
-            // with the message from the exception.
             Log.e(TAG, "Problem parsing the earthquake JSON results", e);
         }
-
-        // Return the list of earthquakes
         return earthquakes;
     }
 
-    /**
-     * Query the USGS dataset and return a list of Earthquake objects.
-     */
-    public static List<com.pokidin.a.quakereport.Earthquake> fetchEarthquakeData(String requestUrl) {
+    // Query the USGS dataset and return a list of Earthquake objects.
+    public static List<Earthquake> fetchEarthquakeData(String requestUrl) {
 
         // Create URL object
         URL url = createUrl(requestUrl);
@@ -179,8 +161,8 @@ public final class QueryUtils {
         }
 
         Log.d(TAG, "fetchEarthquakeData checked");
+
         // Extract relevant fields from the JSON response and create a list of Earthquakes
-        // Return the list of Earthquakes
         return extractFeatureFromJson(jsonResponse);
     }
 }
