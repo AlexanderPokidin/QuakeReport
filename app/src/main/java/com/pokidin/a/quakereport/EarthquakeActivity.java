@@ -102,9 +102,15 @@ public class EarthquakeActivity extends AppCompatActivity
         Log.d(TAG, "onCreateLoader checked");
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+        // Extract minimum Earthquake magnitude value from SharedPreference
         String minMagnitude = sharedPreferences.getString(
                 getString(R.string.settings_min_magnitude_key),
                 getString(R.string.settings_min_magnitude_default));
+
+        String orderBy = sharedPreferences.getString(
+                getString(R.string.settings_order_by_key),
+                getString(R.string.settings_order_by_default));
 
         // Create request URL
         Uri baseUri = Uri.parse(USGS_REQUEST_URL);
@@ -115,7 +121,8 @@ public class EarthquakeActivity extends AppCompatActivity
 
         // Add minimum Earthquake magnitude value to request URL
         builder.appendQueryParameter("minmag", minMagnitude);
-        builder.appendQueryParameter("orderby", "time");
+
+        builder.appendQueryParameter("orderby", orderBy);
 
         // Create a new loader for the given URL
         return new EarthquakeLoader(this, builder.toString());
