@@ -18,9 +18,7 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Helper methods related to requesting and receiving earthquake data from USGS.
- */
+//Helper methods related to requesting and receiving earthquake data from USGS.
 public final class QueryUtils {
 
     private static final String TAG = QueryUtils.class.getSimpleName();
@@ -90,11 +88,9 @@ public final class QueryUtils {
         return output.toString();
     }
 
-    /**
-     * Create a private constructor because no one should ever create a QueryUtils object.
-     * This class is only meant to hold static variables and methods, which can be accessed
-     * directly from the class name QueryUtils (and an object instance of QueryUtils is not needed).
-     */
+    //    Create a private constructor because no one should ever create a QueryUtils object.
+//    This class is only meant to hold static variables and methods, which can be accessed
+//    directly from the class name QueryUtils (and an object instance of QueryUtils is not needed).
     private QueryUtils() {
     }
 
